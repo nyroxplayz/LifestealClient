@@ -64,6 +64,17 @@ public final class WaypointManager {
         return WAYPOINTS.isEmpty() ? null : WAYPOINTS.get(WAYPOINTS.size() - 1);
     }
 
+    /** Removes the most recently saved waypoint and persists the updated list. */
+    public static Waypoint deleteLastWaypoint() {
+        if (WAYPOINTS.isEmpty()) {
+            return null;
+        }
+
+        Waypoint removed = WAYPOINTS.remove(WAYPOINTS.size() - 1);
+        save();
+        return removed;
+    }
+
     public static double distanceToLastWaypoint(Minecraft minecraft) {
         Waypoint waypoint = getLastWaypoint();
         if (waypoint == null || minecraft.player == null || minecraft.level == null) {
