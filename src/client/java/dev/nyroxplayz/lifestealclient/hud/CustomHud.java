@@ -14,14 +14,24 @@ public final class CustomHud {
     private static final int ACCENT = 0xFF54E6C1;
     private static final int PRIMARY_TEXT = 0xFFF2F5FA;
     private static final int SECONDARY_TEXT = 0xFFB7C2D4;
+    private static boolean enabled = true;
 
     private CustomHud() {
+    }
+
+    public static boolean toggleEnabled() {
+        enabled = !enabled;
+        return enabled;
+    }
+
+    public static boolean isEnabled() {
+        return enabled;
     }
 
     public static void render(GuiGraphics graphics, DeltaTracker tickCounter) {
         Minecraft minecraft = Minecraft.getInstance();
 
-        if (minecraft.options.hideGui || minecraft.player == null || minecraft.level == null) {
+        if (!enabled || minecraft.options.hideGui || minecraft.player == null || minecraft.level == null) {
             return;
         }
 
