@@ -58,6 +58,15 @@ public final class ClientMain implements ClientModInitializer {
                 )
         );
 
+        KeyMapping removeLastWaypointKey = KeyBindingHelper.registerKeyBinding(
+                new KeyMapping(
+                        "key.lifestealclient.remove_last_waypoint",
+                        InputConstants.Type.KEYSYM,
+                        InputConstants.KEY_N,
+                        category
+                )
+        );
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (toggleHudKey.consumeClick()) {
                 boolean enabled = CustomHud.toggleEnabled();
@@ -111,8 +120,22 @@ public final class ClientMain implements ClientModInitializer {
                     );
                 }
             }
+
+            while (removeLastWaypointKey.consumeClick()) {
+                if (client.player == null) {
+                    continue;
+                }
+
+                WaypointManager.Waypoint removed = WaypointManager.deleteLastWaypoint();
+                client.player.displayClientMessage(
+                        Component.literal(removed == null
+                                ? "No waypoint to remove."
+                                : "Removed " + removed.name() + "."),
+                        false
+                );
+            }
         });
 
-        LOGGER.info("LifestealClient HUD and waypoint list key registered.");
+        LOGGER.info("LifestealClient HUD and waypoint controls registered.");
     }
 }
