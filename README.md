@@ -2,10 +2,15 @@
 
 A client-only Fabric mod for Minecraft **1.21.11**, built with Java 21.
 
+## Current features
+- Custom top-left HUD panel with the client name and Minecraft version
+- Displays the local player's current block coordinates
+- Respects Minecraft's Hide HUD setting (F1)
+
 ## Planned features
-- Lightweight client HUD and cooldown display
 - Saved waypoints with distance and dimension information
 - Alerts for approaching your own saved waypoints
+- More client HUD widgets and customization options
 - Utilities that work with blocks and information legitimately visible to the player
 
 This project does not aim to bypass server anti-cheat or reveal hidden blocks, bases, or entities.
@@ -26,4 +31,4 @@ gradle build
 The built mod JAR will be in `build/libs/`. If you use an IDE, import the repository as a Gradle project.
 
 ## Development status
-Early starter scaffold. The client entrypoint is in `src/client/java/dev/nyroxplayz/lifestealclient/ClientMain.java`. Features will be added incrementally and tested against Minecraft 1.21.11.
+Early development. The client entrypoint is `src/client/java/dev/nyroxplayz/lifestealclient/ClientMain.java`; the HUD renderer is `src/client/java/dev/nyroxplayz/lifestealclient/hud/CustomHud.java`.
