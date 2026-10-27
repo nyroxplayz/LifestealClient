@@ -49,7 +49,7 @@ public final class WaypointManager {
         Waypoint waypoint = new Waypoint(
                 "Waypoint " + (WAYPOINTS.size() + 1),
                 position,
-                dimensionKey.location().toString()
+                dimensionKey.toString()
         );
         WAYPOINTS.add(waypoint);
         save();
@@ -81,7 +81,7 @@ public final class WaypointManager {
             return -1;
         }
 
-        String currentDimension = minecraft.level.dimension().location().toString();
+        String currentDimension = minecraft.level.dimension().toString();
         if (!waypoint.dimension().equals(currentDimension)) {
             return -1;
         }
