@@ -5,6 +5,8 @@ A client-only Fabric mod for Minecraft **1.21.11**, built with Java 21.
 ## Current features
 - Custom top-left HUD panel with the client name and Minecraft version
 - Displays the local player's current block coordinates
+- Press **H** to toggle the custom HUD on or off
+- Rebind the toggle in **Options → Controls → Key Binds → Lifesteal Client**
 - Respects Minecraft's Hide HUD setting (F1)
 
 ## Planned features
