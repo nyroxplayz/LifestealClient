@@ -1,5 +1,7 @@
 {
   "key.category.lifestealclient.main": "Lifesteal Client",
   "key.lifestealclient.toggle_hud": "Toggle Custom HUD",
-  "key.lifestealclient.save_waypoint": "Save Current Waypoint"
+  "key.lifestealclient.save_waypoint": "Save Current Waypoint",
+  "key.lifestealclient.list_waypoints": "List Saved Waypoints",
+  "key.lifestealclient.remove_last_waypoint": "Remove Last Waypoint"
 }
