@@ -1,5 +1,6 @@
 package dev.nyroxplayz.lifestealclient.hud;
 
+import dev.nyroxplayz.lifestealclient.waypoints.WaypointManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.DeltaTracker;
@@ -7,7 +8,7 @@ import net.minecraft.core.BlockPos;
 
 /**
  * Small, client-side information panel. It only displays the local player's
- * current coordinates and does not inspect hidden world data.
+ * current coordinates and information about manually saved waypoints.
  */
 public final class CustomHud {
     private static final int PANEL_BACKGROUND = 0xC0101420;
@@ -37,8 +38,8 @@ public final class CustomHud {
 
         int left = 8;
         int top = 8;
-        int width = 154;
-        int height = 56;
+        int width = 190;
+        int height = 72;
 
         graphics.fill(left, top, left + width, top + height, PANEL_BACKGROUND);
         graphics.fill(left, top, left + 3, top + height, ACCENT);
@@ -48,6 +49,17 @@ public final class CustomHud {
 
         BlockPos pos = minecraft.player.blockPosition();
         String coordinates = "XYZ  " + pos.getX() + "  " + pos.getY() + "  " + pos.getZ();
-        graphics.drawString(minecraft.font, coordinates, left + 10, top + 37, PRIMARY_TEXT, false);
+        graphics.drawString(minecraft.font, coordinates, left + 10, top + 36, PRIMARY_TEXT, false);
+
+        WaypointManager.Waypoint waypoint = WaypointManager.getLastWaypoint();
+        if (waypoint == null) {
+            graphics.drawString(minecraft.font, "Waypoint: press B to save", left + 10, top + 52, SECONDARY_TEXT, false);
+        } else {
+            double distance = WaypointManager.distanceToLastWaypoint(minecraft);
+            String waypointLine = distance < 0
+                    ? "Last: " + waypoint.name() + " (other dimension)"
+                    : "Last: " + waypoint.name() + " - " + Math.round(distance) + "m";
+            graphics.drawString(minecraft.font, waypointLine, left + 10, top + 52, SECONDARY_TEXT, false);
+        }
     }
 }
