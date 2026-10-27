@@ -49,6 +49,15 @@ public final class ClientMain implements ClientModInitializer {
                 )
         );
 
+        KeyMapping listWaypointsKey = KeyBindingHelper.registerKeyBinding(
+                new KeyMapping(
+                        "key.lifestealclient.list_waypoints",
+                        InputConstants.Type.KEYSYM,
+                        InputConstants.KEY_V,
+                        category
+                )
+        );
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (toggleHudKey.consumeClick()) {
                 boolean enabled = CustomHud.toggleEnabled();
@@ -78,8 +87,32 @@ public final class ClientMain implements ClientModInitializer {
                     );
                 }
             }
+
+            while (listWaypointsKey.consumeClick()) {
+                if (client.player == null) {
+                    continue;
+                }
+
+                var waypoints = WaypointManager.getWaypoints();
+                if (waypoints.isEmpty()) {
+                    client.player.displayClientMessage(Component.literal("No saved waypoints yet. Press B to save your position."), false);
+                    continue;
+                }
+
+                client.player.displayClientMessage(Component.literal("=== Saved Waypoints (" + waypoints.size() + ") ==="), false);
+                for (WaypointManager.Waypoint waypoint : waypoints) {
+                    client.player.displayClientMessage(
+                            Component.literal(waypoint.name() + " | "
+                                    + waypoint.position().getX() + ", "
+                                    + waypoint.position().getY() + ", "
+                                    + waypoint.position().getZ() + " | "
+                                    + waypoint.dimension()),
+                            false
+                    );
+                }
+            }
         });
 
-        LOGGER.info("LifestealClient HUD, toggle key, and waypoint key registered.");
+        LOGGER.info("LifestealClient HUD and waypoint list key registered.");
     }
 }
