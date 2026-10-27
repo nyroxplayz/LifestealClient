@@ -7,6 +7,8 @@ A client-only Fabric mod for Minecraft **1.21.11**, built with Java 21.
 - Displays the local player's current block coordinates
 - Press **H** to toggle the custom HUD on or off
 - Press **B** to save your current position as a waypoint
+- Press **V** to print your saved waypoint list, including coordinates and dimension, in chat
+- Press **N** to remove the most recently saved waypoint
 - Waypoints persist between game sessions in the local Minecraft config folder
 - HUD shows the most recently saved waypoint and distance when you're in the same dimension
 - Keybinds can be changed in **Options → Controls → Key Binds → Lifesteal Client**
@@ -15,7 +17,7 @@ A client-only Fabric mod for Minecraft **1.21.11**, built with Java 21.
 Waypoint data is stored locally in `config/lifestealclient-waypoints.json`. Each entry is a position you explicitly saved; the mod does not scan hidden world data.
 
 ## Planned features
-- Waypoint list and rename/delete controls
+- Waypoint rename controls
 - Alerts for approaching your own saved waypoints
 - More client HUD widgets and customization options
 - Utilities that work with blocks and information legitimately visible to the player
