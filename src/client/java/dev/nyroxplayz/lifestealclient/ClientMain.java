@@ -2,6 +2,7 @@ package dev.nyroxplayz.lifestealclient;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.nyroxplayz.lifestealclient.hud.CustomHud;
+import dev.nyroxplayz.lifestealclient.waypoints.WaypointManager;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -39,6 +40,15 @@ public final class ClientMain implements ClientModInitializer {
                 )
         );
 
+        KeyMapping saveWaypointKey = KeyBindingHelper.registerKeyBinding(
+                new KeyMapping(
+                        "key.lifestealclient.save_waypoint",
+                        InputConstants.Type.KEYSYM,
+                        InputConstants.KEY_B,
+                        category
+                )
+        );
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (toggleHudKey.consumeClick()) {
                 boolean enabled = CustomHud.toggleEnabled();
@@ -49,8 +59,27 @@ public final class ClientMain implements ClientModInitializer {
                     );
                 }
             }
+
+            while (saveWaypointKey.consumeClick()) {
+                if (client.player == null || client.level == null) {
+                    continue;
+                }
+
+                WaypointManager.Waypoint waypoint = WaypointManager.saveCurrentPosition(client);
+                if (waypoint != null) {
+                    client.player.displayClientMessage(
+                            Component.literal(
+                                    waypoint.name() + " saved at "
+                                            + waypoint.position().getX() + ", "
+                                            + waypoint.position().getY() + ", "
+                                            + waypoint.position().getZ()
+                            ),
+                            false
+                    );
+                }
+            }
         });
 
-        LOGGER.info("LifestealClient HUD and toggle key registered.");
+        LOGGER.info("LifestealClient HUD, toggle key, and waypoint key registered.");
     }
 }
