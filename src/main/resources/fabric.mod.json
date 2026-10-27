@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "lifestealclient",
+  "version": "${version}",
+  "name": "LifestealClient",
+  "description": "Client-side HUD, waypoints, and visible-world utility tools for Minecraft 1.21.11.",
+  "authors": ["nyroxplayz"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.nyroxplayz.lifestealclient.ClientMain"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.20.1",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
