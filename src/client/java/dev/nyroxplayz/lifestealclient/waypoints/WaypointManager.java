@@ -57,6 +57,6 @@ public final class WaypointManager {
             return -1;
         }
 
-        return Math.sqrt(minecraft.player.blockPosition().distToCenterSqr(waypoint.position().getCenter()));
+        return minecraft.player.position().distanceTo(waypoint.position().getCenter());
     }
 }
